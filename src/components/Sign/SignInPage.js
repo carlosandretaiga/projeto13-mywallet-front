@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Link, useNavigate } from "react-router-dom";
+
 
 import styled from 'styled-components';
 
@@ -30,8 +32,10 @@ export default function SignInPage() {
           </Button>
 
         </FormLogin>
-
-        <Span>Não tem uma conta? Cadastre-se</Span>
+        
+        <Link to='/sign-up'>
+        <Span>Não tem uma conta? Cadastre-se!</Span>
+        </Link>
 
       </ContainerSignIn>
 
