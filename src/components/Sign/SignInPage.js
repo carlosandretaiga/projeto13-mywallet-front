@@ -66,10 +66,7 @@ const InputLogin = styled.input`
         margin-top: 24px; 
         width: 326px;
         height: 58px;
-        font-weight: 400;
-        font-size: 18px;
-        line-height: 21px;
-        padding: 0 1.5rem;
+        padding: 0 0.9rem;
         background-color: var(--white);
         border: 1px solid var(--white);
         border-radius: 5px;
@@ -80,7 +77,6 @@ const InputLogin = styled.input`
         font-weight: 400;
         font-size: 20px;
         line-height: 16px;
-        //padding-left: 2px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -142,6 +138,6 @@ const Span = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    text-decoration-line: underline;
+    //text-decoration-line: underline;
     color: var(--white);
 `
