@@ -71,6 +71,11 @@ const ContainerSignUp = styled.article`
 `
 
 const Input = styled.input`
+        font-family: 'Raleway';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 16px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -119,6 +124,12 @@ const Button = styled.button`
     margin-bottom: 1.2rem;
     width: 326px;
     height: 46px;
+
+
+    a { 
+        text-decoration: none;
+        color: var(--white);
+    }
 
     background: var(--background-buttons);
     border-radius: 8px;
