@@ -17,8 +17,8 @@ const ContainerGlobal = styled.div`
     display: flex;
     flex-direction: column;
     padding: 10px 0;
-    border-color: #e2e8f0; 
-    border: 1px solid #e2e8f0;
+    //border-color: #e2e8f0; 
+    //border: 1px solid #e2e8f0;
 
     -webkit-box-align: center;
 
@@ -26,10 +26,10 @@ const ContainerGlobal = styled.div`
     height: 660px;
     z-index: 1;
     //height: 100%;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+    //box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
     background: var(--background);
 
-    transition: all .3s ease;
+    //transition: all .3s ease;
 
     &::before, ::after {
         border-color: #e2e8f0; 

@@ -178,20 +178,6 @@ const ContainerBalance = styled.section`
   }
 `
 
-const ContainerScroll = styled.div`
-
-flex-direction: colum;
-justify-content: center;
-align-items: center;
-//padding-top: -20px;
-//width: 316px;
-  //height: 320px;
-  //margin: 0 auto; 
-   //scrollbar-width: 320px;
-   //-ms-overflow-style: none;
-   //overflow:scroll;
-`
-
 const ContainerValueTransactions = styled.section`
   position: relative;
   scrollbar-width: none;
@@ -236,7 +222,7 @@ const ContainerValueTransactions = styled.section`
     font-size: 16px;
     line-height: 19px;
     text-align: right;
-    color: #C70000;
+    //color: #C70000;
     //#03AC00
   }
 `
@@ -308,11 +294,8 @@ const ContainerRegisterTransactions = styled.section`
     line-height: 23px;
     text-align: center;
     color: #868686;
-
     width: 180px;
-
-   padding-top: 188px;
-
+    padding-top: 188px;
     display: flex;
     justify-content: center;
     align-items: center;
