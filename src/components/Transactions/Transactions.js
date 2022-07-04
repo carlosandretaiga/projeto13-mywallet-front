@@ -19,7 +19,7 @@ export default function TransactionsPage() {
   const {transId} = useParams(); 
   const navigate = useNavigate(); 
 
-  console.log(typeof transId);
+  //console.log(typeof transId);
 
   const { token, setTransactionsData } = useContext(UserContext);
 
@@ -67,7 +67,7 @@ if( isNumeric(value) === false) {
     description: description
   }
 
-  console.log(data);
+ //console.log(data);
 
   const API = 'https://taigamywallet.herokuapp.com/transactions';
 

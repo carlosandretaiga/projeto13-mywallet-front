@@ -48,6 +48,41 @@ if(name === '' ) {
   navigate('/');
 }
 
+let filterValuesEntry = transactionsData.filter((e) => {
+  return e.type === 'entry';
+}
+);
+
+let filterValuesExit = transactionsData.filter((e) => {
+  return e.type === 'exit';
+
+});
+
+const arrayValuesEntry = [];
+const arrayValuesExit = [];
+
+filterValuesEntry.map((e) => {
+  arrayValuesEntry.push(parseFloat(e.value));               
+})
+
+filterValuesExit.map((e) => {
+  arrayValuesExit.push(parseFloat(e.value));               
+})
+
+function calculeSum(num) {
+  let _sum = 0;
+  for(let i =0; i< num.length; i++) {
+     _sum += num[i];
+  }
+  return _sum;
+}
+
+let amountEntry = calculeSum(arrayValuesEntry);
+let amountExit = calculeSum(arrayValuesExit);
+
+console.log(amountEntry, amountExit);
+
+let balanceAmount = (amountEntry - amountExit); 
 
   return (
     <Container>
@@ -63,8 +98,7 @@ if(name === '' ) {
 
           {transactionsData.length > 0 ?
             <ContainerValueTransactions>
-
-              {transactionsData.map((item, index) =>
+              {transactionsData.reverse().map((item, index) =>
 
                 <ValueTransactions key={index}>
                   <ValueTransactionsLeft>
@@ -82,7 +116,7 @@ if(name === '' ) {
               <ContainerBalance>
 
                 <h5>SALDO</h5>
-                <h6>2890,80</h6>
+                <h3>{balanceAmount}</h3>
 
               </ContainerBalance>
 
@@ -132,7 +166,7 @@ const ContainerBalance = styled.section`
     color: #000000;
   }
 
-  h6 {
+  h3 {
     font-family: 'Raleway';
     font-style: normal;
     font-weight: 400;
