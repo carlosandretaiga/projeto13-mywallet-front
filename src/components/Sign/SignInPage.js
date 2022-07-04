@@ -27,8 +27,6 @@ export default function SignInPage() {
   const [submit, setSubmit] = useState(false);
 
 
-
-
   function submitLogin (event) {
     event.preventDefault();
     setSubmit(true);
@@ -38,14 +36,14 @@ export default function SignInPage() {
       password: password
     }
 
-    const LOGIN_API = 'http://localhost:5009/sign-in';
+    const LOGIN_API = 'https://taigamywallet.herokuapp.com/sign-in';
     const promise = axios.post(LOGIN_API, body);
 
     promise.then(response => {
       //console.log(response.data)
       setToken(response.data.token);
       setName(response.data.UserName.name);
-      setTransactionsData(response.data.TransactionsExistsDatabase);
+      setTransactionsData(response.data.transactionsExistsDatabase);
       //console.log(response.data.token)
       //console.log(response.data.UserName.name)
       //console.log(response.data.TransactionsExistsDatabase)

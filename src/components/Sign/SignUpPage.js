@@ -30,7 +30,9 @@ export default function SignUpPage() {
       confirmPassword: confirmPassword
     }
 
-    const SIGN_UP_API = 'http://localhost:5009/sign-up';
+    const SIGN_UP_API = 'https://taigamywallet.herokuapp.com/sign-up';
+    //const SIGN_UP_API = 'http://localhost:5009/sign-up';
+    //https://taigamywallet.herokuapp.com/sign-up
 
     const promise = axios.post(SIGN_UP_API, body);
     promise

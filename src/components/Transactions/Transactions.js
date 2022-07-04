@@ -40,7 +40,6 @@ useEffect(() => {
     setNameTransaction('entrada');
     setType('entry');
   }
-
 }, [token])
 
 function isNumeric(_value) {
@@ -70,12 +69,12 @@ if( isNumeric(value) === false) {
 
   console.log(data);
 
-  const API = 'http://localhost:5009/transactions';
+  const API = 'https://taigamywallet.herokuapp.com/transactions';
 
   const promise = axios.post(API, data, config);
   promise.then((response) => {
-    //setTransactionsData(response.data);
-    //console.log(response.data);
+    setTransactionsData(response.data);
+    console.log(response.data);
     navigate('/home');
   });
   promise.catch((error) => {
