@@ -1,5 +1,8 @@
 import React from 'react';
-import { Link, Route, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+import { useState } from 'react';
+import axios from 'axios';
 
 import styled from 'styled-components';
 
@@ -7,32 +10,78 @@ import Container from '../shared/Container';
 
 export default function SignUpPage() {
 
+  const navigate = useNavigate();
+
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  const [pageLoaded, setPageLoaded] = useState(true);
+
+  function signUpForm(event) {
+    event.preventDefault();
+    setPageLoaded(false);
+
+    const body = {
+      name: name,
+      email: email,
+      password: password,
+      confirmPassword: confirmPassword
+    }
+
+    const SIGN_UP_API = 'http://localhost:5009/sign-up';
+
+    const promise = axios.post(SIGN_UP_API, body);
+    promise
+    .then(response => {
+      navigate('/')
+      console.log(response.data);
+    })
+    .catch(error => {
+      alert('Cadastro inválido! Por favor verifique seus dados.');
+      setPageLoaded(true);
+    })
+  }
+
   return (
     <Container>
       <ContainerSignUp>
 
         <h1>MyWallet</h1>
 
-        <Form >
+        <Form onSubmit={(event) => 
+        signUpForm(event)}>
 
           <Input
             placeholder='Nome'
             type='text'
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required maxlength="30"
+            autoComplete='on'
           />
 
           <Input
             placeholder='E-mail'
             type='text'
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            autoComplete='on'
           />
 
           <Input
             placeholder='Senha'
             type='password'
+            value={password}    
+            onChange={(e) => setPassword(e.target.value)}
           />
 
           <Input
             placeholder='Confirme a senha'
             type='password'
+            value={confirmPassword}    
+            onChange={(e) => setConfirmPassword(e.target.value)}
           />
 
           <Button type='submit'>

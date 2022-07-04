@@ -1,120 +1,109 @@
 import React from 'react';
 
+import { useState } from 'react';
+import axios from 'axios';
+
 import { Link, useNavigate } from "react-router-dom";
+
+import { useContext } from "react";
+import UserContext from '../contexts/UserContext';
+
+import { useEffect } from 'react';
 
 import exit from '../../assets/images/exit.svg'
 import addExit from '../../assets/images/add-exit.svg'
 import addEntry from '../../assets/images/add-entry.svg'
 
-
 import styled from 'styled-components';
-
 import Container from '../shared/Container';
 
 export default function Home() {
 
-  const transactions = 1;
+  const navigate = useNavigate();
+
+  const { name, token, transactionsData } = useContext(UserContext);
+
+  //const [transactionsData, setTransactionsData] = useState([]);
+
+  //const transactions = 1;
+
+  console.log(transactionsData);
+
+  const balance = [
+    {
+      id: 0,
+      newType: 'Nova saída',
+      image: addEntry
+    },
+    {
+      id: 1,
+      newType: 'Nova entrada',
+      image: addExit
+    }
+  ]
+
+console.log(balance);
+
+if(name === '' ) {
+  navigate('/');
+}
+
 
   return (
     <Container>
       <ContainerHome>
 
         <Header>
-        <h2>Olá, Fulano</h2>
-        <ImgHeader src={exit} alt="Sair" />
+          <h2>Olá, {name}</h2>
+          <Link to='/'>
+          <ImgHeader src={exit} alt="Sair" />
+          </Link>
         </Header>
         <ContainerRegisterTransactions>
 
-          {transactions > 0 ?
-          <ContainerValueTransactions>
+          {transactionsData.length > 0 ?
+            <ContainerValueTransactions>
 
-            <ValueTransactions>
-              <p>03/11</p> 
-              <p>Almoço</p>
-              <p>39,90</p>
-            </ValueTransactions>
+              {transactionsData.map((item, index) =>
 
-            <ValueTransactions>
-              <p>03/11</p> 
-              <p>Almoço</p>
-              <p>39,90</p>
-            </ValueTransactions>
-            <ValueTransactions>
-              <p>03/11</p> 
-              <p>Almoço</p>
-              <p>39,90</p>
-            </ValueTransactions>
-            <ValueTransactions>
-              <p>03/11</p> 
-              <p>Almoço</p>
-              <p>39,90</p>
-            </ValueTransactions>
+                <ValueTransactions key={index}>
+                  <ValueTransactionsLeft>
+                  <h6>{item.dayMonth}</h6>
+                  <h5>{item.description}</h5>
+                  </ValueTransactionsLeft>
 
-            <ValueTransactions>
-              <p>03/11</p> 
-              <p>Almoço</p>
-              <p>39,90</p>
-            </ValueTransactions>
+                  <ValueTransactionsRight>
+                  <h4>{item.value}</h4>
+                  </ValueTransactionsRight>
+                </ValueTransactions>
 
-            <ValueTransactions>
-              <p>03/11</p> 
-              <p>Almoço</p>
-              <p>39,90</p>
-            </ValueTransactions>
+              )}
 
-            <ValueTransactions>
-              <p>03/11</p> 
-              <p>Almoço</p>
-              <p>39,90</p>
-            </ValueTransactions>
+              <ContainerBalance>
 
-            <ValueTransactions>
-              <p>03/11</p> 
-              <p>Almoço</p>
-              <p>39,90</p>
-            </ValueTransactions>
+                <h5>SALDO</h5>
+                <h6>2890,80</h6>
 
-            <ValueTransactions>
-              <p>03/11</p> 
-              <p>Almoço</p>
-              <p>39,90</p>
-            </ValueTransactions>
+              </ContainerBalance>
 
-            <ValueTransactions>
-              <p>03/11</p> 
-              <p>Almoço</p>
-              <p>39,90</p>
-            </ValueTransactions>
-         
-            
-  
-
-            <ContainerBalance>
-
-              <p><strong>Saldo</strong></p>
-              <p>2890,80</p>
-
-            </ContainerBalance>
-
-          </ContainerValueTransactions>
-          : <p>Não há registros de entrada ou saída</p>
+            </ContainerValueTransactions>
+            : <p>Não há registros de entrada ou saída</p>
           }
 
         </ContainerRegisterTransactions>
 
         <Footer>
 
-          <ButtonTransaction>
-          <ImgFooter src={addEntry} alt="Adicionar entrada" />
-
-            <p>Nova entrada</p>
-          </ButtonTransaction>
-
-          <ButtonTransaction>
-          <ImgFooter src={addExit} alt="Adicionar saída" />
-          <p>Nova saída</p>
-          </ButtonTransaction>
-
+            <ButtonTransaction onClick={() => navigate('/transactions/1')}>
+              <ImgFooter src={addEntry} alt="Adicionar entrada" />
+              <p>Nova entrada</p>
+            </ButtonTransaction>
+         
+            <ButtonTransaction onClick={() => navigate('/transactions/0')}>
+              <ImgFooter src={addExit} alt="Adicionar saída" />
+              <p>Nova saída</p>
+            </ButtonTransaction>
+        
         </Footer>
 
       </ContainerHome>
@@ -126,12 +115,33 @@ export default function Home() {
 const ContainerBalance = styled.section`
   position: fixed;
   display: flex;
-  justify-content: space-around;
-  align-items: center;
+  justify-content: start;
+  //align-items: center;
   width: 306px;
-  //margin-top: 270px;
+  padding-top: 50px;
+  //margin-top: 370px;
   height: 20px;
   margin: 0 auto; 
+
+  h5 {
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 20px;
+    color: #000000;
+  }
+
+  h6 {
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 20px;
+    text-align: right;
+    color: #03AC00;
+
+  }
 `
 
 const ContainerScroll = styled.div`
@@ -160,16 +170,67 @@ const ContainerValueTransactions = styled.section`
   width: 306px;
   height: 360px;
   margin: 0 auto; 
+  //margin-top: 10px;
+  padding-top: 10px;
+  margin-bottom: 20px;
+
+  h6 {
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    width: 50px;
+    color: #C6C6C6;
+  }
+
+  h5 {
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    padding-left: 4px;
+    width: 320px;
+    line-height: 19px;
+    color: #000000;
+  }
+
+  h4 {
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: right;
+    color: #C70000;
+    //#03AC00
+  }
 `
 
 const ValueTransactions = styled.div`
   width: 306px;
   //padding-top:-20px;
+  height: 20px;
+  display: flex;
+  justify-content: flex-start;
+`
+const ValueTransactionsLeft = styled.div`
+  width: 250px;
+  //padding-left: 10px;
   height: 30px;
   display: flex;
-  justify-content: space-around;
-  align-items: top;
-` 
+  justify-content: flex-start;
+`
+
+const ValueTransactionsRight = styled.div`
+  //width: 200px;
+  //margin-left: 100px;
+  height: 30px;
+  display: flex;
+  justify-content: flex-end;
+`
+
+
 
 const Footer = styled.footer` 
     width: 326px;

@@ -2,12 +2,64 @@ import React from 'react';
 
 import { Link, useNavigate } from "react-router-dom";
 
+import { useState } from 'react';
+import axios from 'axios';
 
+import { useContext } from "react";
+
+import UserContext from '../contexts/UserContext';
 import styled from 'styled-components';
 
 import Container from '../shared/Container';
 
 export default function SignInPage() {
+
+
+  const { setToken, setTransactionsData } = useContext(UserContext);
+  const { setName } = useContext(UserContext);
+
+  const navigate = useNavigate(); 
+
+  const [email, setEmail] = useState(''); 
+  const [password, setPassword] = useState('');
+
+  const [pageLoaded, setPageLoaded] = useState(true); 
+  const [submit, setSubmit] = useState(false);
+
+
+
+
+  function submitLogin (event) {
+    event.preventDefault();
+    setSubmit(true);
+
+    const body = {
+      email: email,
+      password: password
+    }
+
+    const LOGIN_API = 'http://localhost:5009/sign-in';
+    const promise = axios.post(LOGIN_API, body);
+
+    promise.then(response => {
+      //console.log(response.data)
+      setToken(response.data.token);
+      setName(response.data.UserName.name);
+      setTransactionsData(response.data.TransactionsExistsDatabase);
+      //console.log(response.data.token)
+      //console.log(response.data.UserName.name)
+      //console.log(response.data.TransactionsExistsDatabase)
+      navigate('/home');
+
+      //console.log(response.data);
+    });
+
+    promise.catch(error => {
+      alert("Usuário e/ou senha inválidos(s)!");
+      setSubmit(false);
+    });
+  }
+
 
   return (
     <Container>
@@ -15,16 +67,22 @@ export default function SignInPage() {
 
         <h1>MyWallet</h1>
 
-        <FormLogin >
+        <FormLogin onSubmit={submitLogin}>
 
           <InputLogin
             placeholder='E-mail'
             type='text'
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
           />
 
           <InputLogin
             placeholder='Senha'
             type='password'
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
           />
 
           <Button type='submit'>
